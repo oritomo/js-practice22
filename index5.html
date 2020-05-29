@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+    {
+      const obj1 = [
+        { name: 'アーノルド', age: 21 },
+        { name: 'セルヒオ・ラモス', age: 35 },
+        { name: 'サンチョ', age: 19 },
+        { name: 'クロップ' },
+      ];
+
+      for (let i = 0; i < obj1.length; i++) {
+        const el = obj1[i];
+        console.log(`${el.name},${el.age}`);
+      }
+
+      //クロップのageに記述がないのでundifinedになるのでif文で対処する
+      for (let i = 0; i < obj1.length; i++) {
+        const el = obj1[i];
+        if (el.age === undefined) {
+          console.log(`${el.name}のageはありません`)
+        } else {
+          console.log(`${el.name},${el.age}`);
+        }
+      }
+
+      const obj2 = {
+        animal1: 'ゴリラ',
+        animal2: 'インコ',
+        animal3: 'クジラ',
+      }
+
+      for (let el of obj2) {
+        console.log(el); //オブジェクトに対してfor..ofを使うとエラーになる
+      }
+
+      //for-inはプロトタイプ拡張で追加されたメソッドもループで回ってくるためhasOwnPropertyメソッドが必要
+      //hasOwnPropertyなしでも動くけど予期せぬ事態になりかねないので避けるべき
+      for (let key in obj2) {
+        if (obj2.hasOwnProperty(key)) {
+          console.log(key + ': ' + obj2[key]);
+        }
+      }
+      //for...inは連想配列(オブジェクト)を操作するにとどめる配列操作はforかfor...ofを使う
+
+      obj2.forEach(el=>{
+        console.log(el);
+      })//エラーになる
+
+      //なので Object.keys()で、オブジェクトのキーだけを取り出した配列を作成し、それをループさせることで、オブジェクトをループ処理させることができる
+      Object.keys(obj2).forEach(function (key) {
+        console.log(key);//animal1,animal2,animal3が出力
+        
+        console.log(`キーは${key}、値は${obj2[key]}`);
+
+      });
+
+
+
+
+      
+
+
+    }
+  </script>
+</body>
+
+</html>
